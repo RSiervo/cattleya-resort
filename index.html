@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cattleya Resort Antipolo | Your Lush Private Sanctuary</title>
+    <meta name="description" content="Experience premium relaxation at Cattleya Resort in Antipolo, Rizal. Private pavilions, refreshing infinity pools, and authentic Filipino hospitality.">
+    
+    <!-- Open Graph / Social Media Preview -->
+    <meta property="og:title" content="Cattleya Resort Antipolo | Nature's Serenity">
+    <meta property="og:description" content="Escape to nature's serenity in the heart of Antipolo. Book your private getaway today.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&q=80&w=1200">
+    <meta property="og:type" content="website">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Hide scrollbars globally */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        html, body {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .bg-nature {
+            background-color: #fdfcf0;
+        }
+        .text-resort-green {
+            color: #064e3b;
+        }
+        .bg-resort-green {
+            background-color: #064e3b;
+        }
+
+        /* Custom Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes blob {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+        }
+        .animate-blob {
+            animation: blob 8s ease-in-out infinite;
+        }
+
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Better custom scrollbar for overflow areas */
+        .custom-scrollbar::-webkit-scrollbar {
+            display: block;
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #064e3b33;
+            border-radius: 10px;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-nature text-slate-800">
+    <div id="root"></div>
+    
+    <!-- React Entry Point -->
+    <script type="module" src="/index.tsx"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = { threshold: 0.1 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Export reObserve to window for external access
+            window.reObserve = () => {
+                const reveals = document.querySelectorAll('.reveal, .reveal-left');
+                reveals.forEach(el => observer.observe(el));
+            };
+
+            window.reObserve();
+
+            // Observe the root for changes (to handle React Route transitions automatically)
+            const targetNode = document.getElementById('root');
+            if (targetNode) {
+                const observerConfig = { childList: true, subtree: true };
+                const mutationCallback = () => {
+                    window.reObserve();
+                };
+                const mutationObserver = new MutationObserver(mutationCallback);
+                mutationObserver.observe(targetNode, observerConfig);
+            }
+        });
+    </script>
+</body>
+</html>

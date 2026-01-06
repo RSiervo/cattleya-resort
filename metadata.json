@@ -1,0 +1,7 @@
+{
+  "name": "Cattleya Resort Antipolo",
+  "description": "A premium, nature-inspired resort website for Cattleya Resort in Antipolo, Rizal, featuring a booking system, room gallery, and integrated AI travel assistant.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
